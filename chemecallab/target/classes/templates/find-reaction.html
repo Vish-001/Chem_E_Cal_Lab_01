@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Find Reaction</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { max-width: 500px; margin: 20px 0; }
+        label { display: block; margin: 10px 0 5px; }
+        select, input { width: 100%; padding: 8px; margin-bottom: 10px; }
+        .result { margin-top: 20px; padding: 15px; background: #f4f4f4; border-radius: 5px; }
+        .error { color: red; }
+        button { margin: 0.5rem 0; }
+    </style>
+</head>
+<body>
+<h1>Find Reaction Between Elements</h1>
+<form th:action="@{/web/reactions/find}" method="post">
+    <label for="element1">Select Element 1:</label>
+    <select id="element1" name="element1" required>
+        <option value="">-- Select Element --</option>
+        <option th:each="element : ${elements}"
+                th:value="${element.eid}"
+                th:text="${element.name + ' (' + element.formula + ')'}"></option>
+    </select>
+
+    <label for="element2">Select Element 2:</label>
+    <select id="element2" name="element2" required>
+        <option value="">-- Select Element --</option>
+        <option th:each="element : ${elements}"
+                th:value="${element.eid}"
+                th:text="${element.name + ' (' + element.formula + ')'}"></option>
+    </select>
+
+    <button type="submit">Find Reaction</button>
+</form>
+
+<div th:if="${foundReaction != null}" class="result">
+    <h2>Reaction Found!</h2>
+    <p><strong>Formatted Reaction:</strong> <span th:text="${formattedReaction}"></span></p>
+    <p><strong>Name:</strong> <span th:text="${foundReaction.name}"></span></p>
+    <p><strong>Characteristics:</strong> <span th:text="${foundReaction.characteristics}"></span></p>
+</div>
+
+<div th:if="${foundReaction == null}" class="error">
+    <p>No reaction found between the selected elements.</p>
+</div>
+
+<a th:href="@{/web/elements}"><button>Back to Elements</button></a>
+<a th:href="@{/web/reactions}"><button>Back to Reactions</button></a>
+</body>
+</html>

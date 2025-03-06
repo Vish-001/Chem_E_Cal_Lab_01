@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reactions</title>
+    <style>
+        table { border-collapse: collapse; margin: 1rem 0; }
+        th, td { padding: 0.5rem; border: 1px solid #ddd; }
+        .message { color: green; margin: 1rem 0; }
+        .error { color: red; margin: 1rem 0; }
+        button { margin: 0.5rem 0; }
+    </style>
+</head>
+<body>
+<h1>Reactions</h1>
+<div th:if="${message}" class="message" th:text="${message}"></div>
+<div th:if="${error}" class="error" th:text="${error}"></div>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Element 1</th>
+        <th>Element 2</th>
+        <th>Reaction Name</th>
+        <th>Formula</th>
+        <th>Characteristics</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="reaction : ${reactions}">
+        <td th:text="${reaction.rid}"></td>
+        <td th:text="${reaction.eid_1}"></td>
+        <td th:text="${reaction.eid_2}"></td>
+        <td th:text="${reaction.name}"></td>
+        <td th:text="${reaction.formula}"></td>
+        <td th:text="${reaction.characteristics}"></td>
+        <td>
+            <a th:href="@{/web/reactions/delete/{id}(id=${reaction.rid})}">Delete</a>
+        </td>
+    </tr>
+</table>
+
+<a th:href="@{/web/reactions/add}"><button>Add New Reaction</button></a>
+<a th:href="@{/web/elements}"><button>View Elements</button></a>
+<a th:href="@{/web/reactions/find}"><button>Find Reaction</button></a>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Element</title>
+    <style>
+        form { max-width: 500px; margin: 1rem 0; }
+        div { margin: 0.5rem 0; }
+        label { display: block; }
+        input, textarea { width: 100%; padding: 8px; }
+        button { margin: 0.5rem 0; }
+    </style>
+</head>
+<body>
+<h1>Add New Element</h1>
+<form th:action="@{/web/elements/add}" th:object="${element}" method="post">
+    <div>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required>
+    </div>
+    <div>
+        <label>Formula:</label>
+        <input type="text" th:field="*{formula}" required>
+    </div>
+    <div>
+        <label>Properties:</label>
+        <textarea th:field="*{properties}" required></textarea>
+    </div>
+    <button type="submit">Add Element</button>
+    <a th:href="@{/web/elements}"><button type="button">Cancel</button></a>
+</form>
+</body>
+</html>

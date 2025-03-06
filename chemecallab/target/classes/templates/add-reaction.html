@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Reaction</title>
+    <style>
+        form { max-width: 500px; margin: 1rem 0; }
+        div { margin: 0.5rem 0; }
+        label { display: block; }
+        select, input, textarea { width: 100%; padding: 8px; }
+        button { margin: 0.5rem 0; }
+    </style>
+</head>
+<body>
+<h1>Add New Reaction</h1>
+<form th:action="@{/web/reactions/add}" th:object="${reaction}" method="post">
+    <div>
+        <label>Element 1:</label>
+        <select th:field="*{eid_1}">
+            <option value="">Select Element 1</option>
+            <option th:each="element : ${elements}"
+                    th:value="${element.eid}"
+                    th:text="${element.name + ' (' + element.formula + ')'}"></option>
+        </select>
+    </div>
+    <div>
+        <label>Element 2:</label>
+        <select th:field="*{eid_2}">
+            <option value="">Select Element 2</option>
+            <option th:each="element : ${elements}"
+                    th:value="${element.eid}"
+                    th:text="${element.name + ' (' + element.formula + ')'}"></option>
+        </select>
+    </div>
+    <div>
+        <label>Reaction Name:</label>
+        <input type="text" th:field="*{name}" required>
+    </div>
+    <div>
+        <label>Formula:</label>
+        <input type="text" th:field="*{formula}" required>
+    </div>
+    <div>
+        <label>Characteristics:</label>
+        <textarea th:field="*{characteristics}" required></textarea>
+    </div>
+    <button type="submit">Add Reaction</button>
+    <a th:href="@{/web/reactions}"><button type="button">Cancel</button></a>
+</form>
+</body>
+</html>
